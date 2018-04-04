@@ -1,17 +1,21 @@
 # Table of Contents
-1. [Understanding the challenge](README.md#understanding-the-challenge)
-2. [Introduction](README.md#introduction)
-3. [Challenge summary](README.md#challenge-summary)
-4. [Details of challenge](README.md#details-of-challenge)
-5. [Implementation details](README.md#implementation-details)
-6. [Input files](README.md#input-files)
-7. [Output file](README.md#output-file)
-8. [Example](README.md#example)
-9. [Writing clean, scalable and well-tested code](README.md#writing-clean-scalable-and-well-tested-code)
-10. [Repo directory structure](README.md#repo-directory-structure)
-11. [Testing your directory structure and output format](README.md#testing-your-directory-structure-and-output-format)
-11. [Instructions to submit your solution](README.md#instructions-to-submit-your-solution)
-13. [FAQ](README.md#faq)
+1. [Programming remarks](README.md#Programming-remarks)
+
+11. [Understanding the challenge](README.md#understanding-the-challenge)
+12. [Introduction](README.md#introduction)
+13. [Challenge summary](README.md#challenge-summary)
+14. [Details of challenge](README.md#details-of-challenge)
+15. [Implementation details](README.md#implementation-details)
+16. [Input files](README.md#input-files)
+17. [Output file](README.md#output-file)
+18. [Example](README.md#example)
+19. [Writing clean, scalable and well-tested code](README.md#writing-clean-scalable-and-well-tested-code)
+20. [Repo directory structure](README.md#repo-directory-structure)
+21. [Testing your directory structure and output format](README.md#testing-your-directory-structure-and-output-format)
+22. [Instructions to submit your solution](README.md#instructions-to-submit-your-solution)
+23. [FAQ](README.md#faq)
+
+# Programming remarks
 
 # Understanding the challenge
 
@@ -19,7 +23,7 @@ We highly recommend that you take a few dedicated minutes to read this README in
 
 # Introduction
 
-Many investors, researchers, journalists and others use the Securities and Exchange Commission's Electronic Data Gathering, Analysis and Retrieval (EDGAR) system to retrieve financial documents, whether they are doing a deep dive into a particular company's financials or learning new information that a company has revealed through their filings. 
+Many investors, researchers, journalists and others use the Securities and Exchange Commission's Electronic Data Gathering, Analysis and Retrieval (EDGAR) system to retrieve financial documents, whether they are doing a deep dive into a particular company's financials or learning new information that a company has revealed through their filings.
 
 The SEC maintains EDGAR weblogs showing which IP addresses have accessed which documents for what company, and at what day and time this occurred.
 
@@ -27,11 +31,11 @@ Imagine the SEC has asked you to take the data and produce a dashboard that woul
 
 While the SEC usually makes its EDGAR weblogs publicly available after a six month delay, imagine that for this challenge, the government entity has promised it would stream the data into your program in real-time and with no delay.
 
-Your job as a data engineer is to build a pipeline to ingest that stream of data and calculate how long a particular user spends on EDGAR during a visit and how many documents that user requests during the session. 
+Your job as a data engineer is to build a pipeline to ingest that stream of data and calculate how long a particular user spends on EDGAR during a visit and how many documents that user requests during the session.
 
 # Challenge summary
 
-For this challenge, we're asking you to take existing publicly available EDGAR weblogs and assume that each line represents a single web request for an EDGAR document that would be streamed into your program in real time. 
+For this challenge, we're asking you to take existing publicly available EDGAR weblogs and assume that each line represents a single web request for an EDGAR document that would be streamed into your program in real time.
 
 Using the data, identify when a user visits, calculate the duration of and number of documents requested during that visit, and then write the output to a file.
 
@@ -41,13 +45,13 @@ You can assume there is another process that takes what is written to the output
 
 # Details of challenge
 
-For the purposes of this challenge, an IP address uniquely identifies a single user. A user is defined to have visited the EDGAR system if during the visit, the IP address requested one or more documents. 
+For the purposes of this challenge, an IP address uniquely identifies a single user. A user is defined to have visited the EDGAR system if during the visit, the IP address requested one or more documents.
 
-Also, for the purposes of this challenge, the amount of time that elapses between document requests should be used to determine when a visit, also referred to as a session, begins and ends. 
+Also, for the purposes of this challenge, the amount of time that elapses between document requests should be used to determine when a visit, also referred to as a session, begins and ends.
 
-A single user session is defined to have started when the IP address first requests a document from the EDGAR system and continues as long as the same user continues to make requests. The session is over after a certain period of time has elapsed -- we'll provide you that value -- and the user makes no requests for documents. 
+A single user session is defined to have started when the IP address first requests a document from the EDGAR system and continues as long as the same user continues to make requests. The session is over after a certain period of time has elapsed -- we'll provide you that value -- and the user makes no requests for documents.
 
-In other words, this period of inactivity helps to determine when the session is over and the user is assumed to have left the system. 
+In other words, this period of inactivity helps to determine when the session is over and the user is assumed to have left the system.
 
 The duration of any particular session is defined to be the time between the IP address' first request and the last one in the same session prior to the period of inactivity. If the user returns later to access another document requests, that subsequent request would be considered the start of a new session.
 
@@ -66,7 +70,7 @@ The value found in `inactivity_period.txt` should be used to determine when a se
 
 ### `log.csv`
 
-The SEC provides weblogs stretching back years and is [regularly updated, although with a six month delay](https://www.sec.gov/dera/data/edgar-log-file-data-set.html). 
+The SEC provides weblogs stretching back years and is [regularly updated, although with a six month delay](https://www.sec.gov/dera/data/edgar-log-file-data-set.html).
 
 For the purposes of this challenge, you can assume that the data is being streamed into your program in the same order that it appears in the file with the first line (after the header) being the first request and the last line being the latest. You also can assume the data is listed in chronological order for the purposes of this challenge.
 
@@ -77,7 +81,7 @@ Also, while we won't expect your program to be able to process all of the SEC's 
 For the purposes of this challenge, below are the data fields you'll want to pay attention to from the SEC weblogs:
 
 * `ip`: identifies the IP address of the device requesting the data. While the SEC anonymizes the last three digits, it uses a consistent formula that allows you to assume that any two `ip` fields with the duplicate values are referring to the same IP address
-* `date`: date of the request (yyyy-mm-dd) 
+* `date`: date of the request (yyyy-mm-dd)
 * `time`:  time of the request (hh:mm:ss)
 * `cik`: SEC Central Index Key
 * `accession`: SEC document accession number
@@ -159,7 +163,7 @@ Then when it reaches the sixth and seventh line:
 
 ![Third second illustration](images/third_second.png)
 
-When it first reads the eighth line, it should detect that the time is now `2017-06-30 00:00:03`. For one user, `101.8.33.jja`, its session has ended because two seconds of inactivity have passed for that user. Because there was only one request, only one web page document was accessed. 
+When it first reads the eighth line, it should detect that the time is now `2017-06-30 00:00:03`. For one user, `101.8.33.jja`, its session has ended because two seconds of inactivity have passed for that user. Because there was only one request, only one web page document was accessed.
 
 ![End of third second illustration](images/end_of_third.png)
 
@@ -189,9 +193,9 @@ At that point, it should write the results to the output file, and the entire co
     107.178.195.aag,2017-06-30 00:00:02,2017-06-30 00:00:04,3,2
     108.91.91.hbc,2017-06-30 00:00:04,2017-06-30 00:00:04,1,1
 
-Notice from the above output that the first two lines were the ones we had already written. 
+Notice from the above output that the first two lines were the ones we had already written.
 
-The third line details the session for `107.23.85.jfd` next because its first document request came at `2017-06-30 00:00:00`, which is earlier than any of the other remaining sessions. 
+The third line details the session for `107.23.85.jfd` next because its first document request came at `2017-06-30 00:00:00`, which is earlier than any of the other remaining sessions.
 
 The fourth line belongs to IP address, `106.120.173.jie` because that user's first document request came at `2017-06-30 00:00:02`. The first document request from `107.178.195.aag` also comes at the same time but it is listed after `106.120.173.jie` in the input file so that is why it is listed on the fifth line.
 
@@ -215,7 +219,7 @@ If your solution requires additional libraries, environments, or dependencies, y
 
 The directory structure for your repo should look like this:
 
-    ├── README.md 
+    ├── README.md
     ├── run.sh
     ├── src
     │   └── sessionization.py
@@ -249,7 +253,7 @@ The tests are stored simply as text files under the `insight_testsuite/tests` fo
 
 You can run the test with the following command from within the `insight_testsuite` folder:
 
-    insight_testsuite~$ ./run_tests.sh 
+    insight_testsuite~$ ./run_tests.sh
 
 On a failed test, the output of `run_tests.sh` should look like:
 
@@ -269,12 +273,12 @@ Your submission must pass at least the provided test in order to pass the coding
 
 ## Instructions to submit your solution
 * To submit your entry please use the link you received in your coding challenge invite email
-* You will only be able to submit through the link one time 
-* Do NOT attach a file - we will not admit solutions which are attached files 
+* You will only be able to submit through the link one time
+* Do NOT attach a file - we will not admit solutions which are attached files
 * Use the submission box to enter the link to your GitHub repo or Bitbucket ONLY
 * Link to the specific repo for this project, not your general profile
 * Put any comments in the README inside your project repo, not in the submission box
-* We are unable to accept coding challenges that are emailed to us 
+* We are unable to accept coding challenges that are emailed to us
 
 # FAQ
 
@@ -306,13 +310,13 @@ We've provided one example as shown above in this README for you to better under
 It's important that your implementation scales to handle large amounts of data. While many of our Fellows have experience with R and Matlab, applicants have found that these languages are unable to process data in a scalable fashion, so you must consider another language.
 
 ### May I use distributed technologies like Hadoop or Spark?
-Your code will be tested on a single machine, so using these technologies will negatively impact your solution. We're not testing your knowledge on distributed computing, but rather on computer science fundamentals and software engineering best practices. 
+Your code will be tested on a single machine, so using these technologies will negatively impact your solution. We're not testing your knowledge on distributed computing, but rather on computer science fundamentals and software engineering best practices.
 
 ### What sort of system should I use to run my program on (Windows, Linux, Mac)?
 You may write your solution on any system, but your source code should be portable and work on all systems. Additionally, your `run.sh` must be able to run on either Unix or Linux, as that's the system that will be used for testing. Linux machines are the industry standard for most data engineering teams, so it is helpful to be familiar with this. If you're currently using Windows, we recommend installing a virtual Unix environment, such as VirtualBox or VMWare, and using that to develop your code. Otherwise, you also could use tools, such as Cygwin or Docker, or a free online IDE such as Cloud9.
 
 ### How fast should my program run?
-While there are no strict performance guidelines to this coding challenge, we will consider the amount of time your program takes when grading the challenge. Therefore, you should design and develop your program in the optimal way (i.e. think about time and space complexity instead of trying to hit a specific run time value). 
+While there are no strict performance guidelines to this coding challenge, we will consider the amount of time your program takes when grading the challenge. Therefore, you should design and develop your program in the optimal way (i.e. think about time and space complexity instead of trying to hit a specific run time value).
 
 ### Can I use pre-built packages, modules, or libraries?
 This coding challenge can be completed without any "exotic" packages. While you may use publicly available packages, modules, or libraries, you must document any dependencies in your accompanying README file. When we review your submission, we will download these libraries and attempt to run your program. If you do use a package, you should always ensure that the module you're using works efficiently for the specific use-case in the challenge, since many libraries are not designed for large amounts of data.
