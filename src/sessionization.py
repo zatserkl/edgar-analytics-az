@@ -1,3 +1,8 @@
+# Andriy Zatserklyaniy <zatserkl@gmail.com> Apr 4, 2018
+
+# current command line:
+# python src/sessionization.py input/log.csv
+
 from filestream import DataStream
 import sys
 
@@ -10,7 +15,7 @@ def main(fname):
         try:
             fields = dataStream.next_fields()
         except StopIteration:
-            print("EOF")
+            print("EOF reached")
             return
         print(fields)
 

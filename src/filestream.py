@@ -29,6 +29,7 @@ class FileStream(object):
 class DataStream(FileStream):
     def __init__(self, fname):
         super().__init__(fname)
+
         # read the header line
         names = []
         try:
@@ -38,7 +39,7 @@ class DataStream(FileStream):
             raise StopIteration
         print("names:\n", names)
 
-        # From the description:
+        # From the task description:
         #
         # "Your program should only use this header to determine the order
         # in which the fields will appear in the rest of the other lines
@@ -58,12 +59,13 @@ class DataStream(FileStream):
             self.accession = name_index["accession"]
             self.extention = name_index["extention"]
         except KeyError as e:
-            print("No such key in the header:", e)
+            print("Terminated: Could not find a key in the header:", e)
             exit()
 
     def next_fields(self):
+        """ Returns fields of interest (string representation)
+        """
         list_str = list(next(self.gen_stream).split(','))
-        # print("list_str", list_str)
         ip = list_str[self.ip]
         date = list_str[self.date]
         time = list_str[self.time]
