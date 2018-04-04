@@ -5,11 +5,14 @@ import sys
 def main(fname):
     print("fname:", fname)
     dataStream = DataStream(fname)
-    try:
-        fields = dataStream.next_fields()
-    except StopIteration:
-        print("EOF")
-    print(fields)
+
+    while True:
+        try:
+            fields = dataStream.next_fields()
+        except StopIteration:
+            print("EOF")
+            return
+        print(fields)
 
 
 if __name__ == "__main__":
