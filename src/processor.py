@@ -14,6 +14,7 @@ class User:
         session_write (datetime): Time to write to file if no more requests
     """
     inactivity_period = datetime.timedelta()  # class variable, common for all
+    second1 = datetime.timedelta(seconds=1)   # constant: 1 second
 
     def __init__(self):
         # times are in datatime.
@@ -28,7 +29,7 @@ class User:
 
     def session_length(self):
         last_request = self.session_write - User.inactivity_period
-        deltat = last_request - self.session_start + 1
+        deltat = last_request - self.session_start + User.second1
         deltat_seconds = math.ceil(deltat.total_seconds())
         return deltat_seconds
 
@@ -60,9 +61,18 @@ class Processor:
         print("*** write slot time_min", str(time_slot))
         print("    timeDict[time_min]:", self.timeDict[time_slot])
         for ip in self.timeDict[time_slot]:
-            print("   ** candidate", self.userDict[ip])
-            if self.userDict[ip].session_write == time_slot:
-                print("   **--> write to file", ip)
+            user = self.userDict[ip]
+            print("   ** candidate", user)
+            if user.session_write == time_slot:
+                session_length = user.session_length()
+                nrequests = user.nrequests
+                print("   **--> write to file", ip, "length:", session_length,
+                      "nrequests:", nrequests)
+                self.outfile.write(str(ip) + "," +
+                                   str(user.session_start) + "," +
+                                   str(user.session_write) + "," +
+                                   str(session_length) + "," +
+                                   str(nrequests) + "\n")
 
     def process_request(self, ip, date_time):
         """ Processes the request from ip at datetime date_time
