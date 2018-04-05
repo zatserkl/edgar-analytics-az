@@ -21,6 +21,11 @@ def main(fname_input, inactivity_period, fname_output):
             processor.flush()
             break
 
+        # debug
+        c = input("<CR>=Continue, q=Quit ")
+        if c.upper() == 'Q':
+            break
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
