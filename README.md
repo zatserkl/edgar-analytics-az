@@ -21,6 +21,8 @@ File stream: We avoid reading the whole file into memory and return generators f
 
 Field indices: we select the field of interest following the order in the header.
 
+Note that in fact we don't need the document name at all.
+
 # Understanding the challenge
 
 We highly recommend that you take a few dedicated minutes to read this README in its entirety before starting to think about potential solutions. You'll probably find it useful to review the examples and understand the problem at a high-level before digging into the specific details, many of which are covered in the FAQ.
