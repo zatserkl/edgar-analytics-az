@@ -70,9 +70,12 @@ class Processor:
                       "nrequests:", nrequests)
                 self.outfile.write(str(ip) + "," +
                                    str(user.session_start) + "," +
-                                   str(user.session_write) + "," +
+                                   str(user.session_write - User.inactivity_period) + "," +
                                    str(session_length) + "," +
                                    str(nrequests) + "\n")
+        del(self.timeDict[time_slot])
+        # TODO: also delete ip from the userDict
+        self.time_min += User.second1   # TODO: FIXIT
 
     def process_request(self, ip, date_time):
         """ Processes the request from ip at datetime date_time
