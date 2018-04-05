@@ -61,6 +61,6 @@ class Processor:
         self.userDict[ip].process_request(date_time)
         print("{:16} {}".format(ip, self.userDict[ip]))
 
-        # add user to time dictionary
+        # add user to time slot session_write
         self.timeDict[self.userDict[ip].session_write].append(ip)
-        # print(self.timeDict[self.userDict[ip].session_write])
+        print("  timeDict", self.timeDict[self.userDict[ip].session_write])
