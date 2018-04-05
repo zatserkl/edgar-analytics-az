@@ -32,14 +32,14 @@ class DataStream(FileStream):
     def __init__(self, fname):
         super().__init__(fname)
 
-        # read the header line
+        # read the header line to get the indices
         names = []
         try:
             names = list(self.next_line().split(','))
         except StopIteration:
             print("Terminated: no header line")
-            raise StopIteration
-        print("names:\n", names)
+            raise
+        # print("names:\n", names)
 
         # From the task description:
         #

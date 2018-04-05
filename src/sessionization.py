@@ -1,43 +1,38 @@
 # Andriy Zatserklyaniy <zatserkl@gmail.com> Apr 4, 2018
 
-# current command line:
-# python src/sessionization.py input/log.csv
-
 from filestream import DataStream
-from processor import User
+from processor import Processor
 import sys
 
 
-def main(fname, inactivity_period):
-    print("fname:", fname)
+def main(fname_input, inactivity_period, fname_output):
+    print("fname_input:", fname_input)
     print("inactivity_period =", inactivity_period)
+    print("fname_output:", fname_output)
 
-    dataStream = DataStream(fname)
+    dataStream = DataStream(fname_input)
+    processor = Processor(fname_input, inactivity_period, fname_output)
 
     while True:
         try:
             fields = dataStream.next_fields()
+            processor.process_request(fields)
         except StopIteration:
-            print("EOF reached")
-            return
-        print(fields)
-
-        user = User()
-        if user.session_start > 0:
-            print("user:", user)
+            processor.flush()
+            break
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage:", __file__, "logfile inactivity-file")
+    if len(sys.argv) < 4:
+        print("Usage:", __file__, "input-file inactivity-file output-file")
         exit()
 
-    fname = sys.argv[1]
+    fname_input = sys.argv[1]
     fname_inactivity = sys.argv[2]
+    fname_output = sys.argv[3]
 
-    # read the inactivity_period
     inactivity_period = 0
     with open(fname_inactivity) as file_inactivity:
         inactivity_period = int(file_inactivity.readline())
 
-    main(fname, inactivity_period)
+    main(fname_input, inactivity_period, fname_output)
