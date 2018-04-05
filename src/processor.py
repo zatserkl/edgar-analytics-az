@@ -23,10 +23,8 @@ class User:
         self.nrequests = 0
 
     def __str__(self):
-        s = ("session_start = " + str(self.session_start) +
-             " session_write = " + str(self.session_write) +
-             " nrequests = " + str(self.nrequests))
-        return s
+        return "session_start: {} session_write: {} nrequests = {}".format(
+            self.session_start, self.session_write, self.nrequests)
 
     def session_length(self):
         last_request = self.session_write - User.inactivity_period
@@ -37,19 +35,21 @@ class User:
     def process_request(self, date_time):
         if self.nrequests == 0:
             self.session_start = date_time
+
         self.session_write = date_time + User.inactivity_period
         self.nrequests += 1
 
 
 class Processor:
     def __init__(self, fname_input, inactivity_period, fname_output):
+        # set User class variable
         User.inactivity_period = datetime.timedelta(seconds=inactivity_period)
 
         self.dataStream = DataStream(fname_input)
         self.outfile = open(fname_output, "w")
 
-        self.userDict = defaultdict(User)
-        self.timeDict = defaultdict(datetime.datetime)
+        self.userDict = defaultdict(User)   # key: ip
+        self.timeDict = defaultdict(list)   # key: time to write to output file
 
     def flush(self):
         print("EOF: flush the rest into the output file")
@@ -57,5 +57,10 @@ class Processor:
     def process_request(self, ip, date_time):
         """ Processes the request from ip at datetime date_time
         """
+        # add user to ip dictionary
         self.userDict[ip].process_request(date_time)
-        print(self.userDict[ip])
+        print(ip, self.userDict[ip])
+
+        # add user to time dictionary
+        self.timeDict[self.userDict[ip].session_write].append(ip)
+        # print(self.timeDict[self.userDict[ip].session_write])
