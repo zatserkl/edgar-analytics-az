@@ -51,16 +51,40 @@ class Processor:
         self.userDict = defaultdict(User)   # key: ip
         self.timeDict = defaultdict(list)   # key: time to write to output file
 
+        self.time_min = None
+
     def flush(self):
         print("EOF: flush the rest into the output file")
+
+    def write_time_slot(self, time_slot):
+        print("*** write slot time_min", str(time_slot))
+        print("    timeDict[time_min]:", self.timeDict[time_slot])
+        for ip in self.timeDict[time_slot]:
+            print("   ** candidate", self.userDict[ip])
+            if self.userDict[ip].session_write == time_slot:
+                print("   **--> write to file", ip)
 
     def process_request(self, ip, date_time):
         """ Processes the request from ip at datetime date_time
         """
+        if self.time_min is None:
+            self.time_min = date_time
+
+        print("-->", str(date_time), "   time_min =", str(self.time_min))
+
+        if date_time - self.time_min > User.inactivity_period:
+            # print(".. write slot", str(self.time_min))
+            self.write_time_slot(self.time_min + User.inactivity_period)
+
         # add user to ip dictionary
         self.userDict[ip].process_request(date_time)
         print("{:16} {}".format(ip, self.userDict[ip]))
 
         # add user to time slot session_write
+        time_slot = self.userDict[ip].session_write
+        print("append ip", ip, "to time_slot", time_slot)
         self.timeDict[self.userDict[ip].session_write].append(ip)
         print("  timeDict", self.timeDict[self.userDict[ip].session_write])
+
+    def bottom(self):
+        pass
