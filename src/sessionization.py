@@ -6,17 +6,17 @@ import sys
 
 
 def main(fname_input, inactivity_period, fname_output):
-    print("fname_input:", fname_input)
-    print("inactivity_period =", inactivity_period)
-    print("fname_output:", fname_output)
+    # print("fname_input:", fname_input)
+    # print("inactivity_period =", inactivity_period)
+    # print("fname_output:", fname_output)
 
     dataStream = DataStream(fname_input)
     processor = Processor(fname_input, inactivity_period, fname_output)
 
     while True:
         try:
-            fields = dataStream.next_fields()
-            processor.process_request(fields)
+            ip, date_time = dataStream.next_fields()
+            processor.process_request(ip, date_time)
         except StopIteration:
             processor.flush()
             break

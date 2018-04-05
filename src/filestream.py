@@ -32,28 +32,25 @@ class DataStream(FileStream):
     def __init__(self, fname):
         super().__init__(fname)
 
-        # read the header line to get the indices
+        # From the task description:
+        #
+        # "Your program should only use this header to determine the order
+        # in which the fields will appear in the rest of the other lines
+        # in the same file."
+
+        # Find indices of the data fields from the order in the header
+
         names = []
         try:
             names = list(self.next_line().split(','))
         except StopIteration:
             print("Terminated: no header line")
             raise
-        # print("names:\n", names)
-
-        # From the task description:
-        #
-        # "Your program should only use this header to determine the order
-        # in which the fields will appear in the rest of the other lines
-        # in the same file."
-        #
-        # Find indices of the data fields from the order in the header.
-        # Note that in fact we don't need the document name at all.
 
         name_index = {}
         for iname, name in enumerate(names):
             name_index[name] = iname
-        print(name_index)
+
         try:
             self.ip = name_index["ip"]
             self.date = name_index["date"]
