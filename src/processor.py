@@ -1,3 +1,5 @@
+# Andriy Zatserklyaniy <zatserkl@gmail.com> Apr 4, 2018
+
 from filestream import DataStream
 from collections import defaultdict
 import math
