@@ -59,7 +59,7 @@ class Processor:
         """
         # add user to ip dictionary
         self.userDict[ip].process_request(date_time)
-        print(ip, self.userDict[ip])
+        print("{:16} {}".format(ip, self.userDict[ip]))
 
         # add user to time dictionary
         self.timeDict[self.userDict[ip].session_write].append(ip)
