@@ -53,7 +53,6 @@ class Processor:
         self.timeDict = defaultdict(list)   # key: time to write to output file
 
         self.time_min = None                # current time slot to write
-        # self.time_request = deque()
 
     def flush(self):
         print("\nEOF: flush the rest into the output file")

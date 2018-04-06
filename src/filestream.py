@@ -56,9 +56,6 @@ class DataStream(FileStream):
             self.date = name_index["date"]
             self.time = name_index["time"]
 
-            # self.cik = name_index["cik"]
-            # self.accession = name_index["accession"]
-            # self.extention = name_index["extention"]
         except KeyError as e:
             print("Terminated: Could not find a key in the header:", e)
             exit()
@@ -71,11 +68,6 @@ class DataStream(FileStream):
         ip = list_str[self.ip]
         date = list_str[self.date]
         time = list_str[self.time]
-
-        # cik = list_str[self.cik]
-        # accession = list_str[self.accession]
-        # extention = list_str[self.extention]
-        # doc = cik + accession + extention
 
         # concatenate date and time and create a datetime object
         date_time_str = date + " " + time

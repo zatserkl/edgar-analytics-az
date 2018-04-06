@@ -5,10 +5,15 @@ from processor import Processor
 import sys
 
 
-def main(fname_input, inactivity_period, fname_output):
-    # print("fname_input:", fname_input)
-    # print("inactivity_period =", inactivity_period)
-    # print("fname_output:", fname_output)
+def wait(debug):
+    if debug:
+        c = input("<CR>=Continue, q=Quit ")
+        if c.upper() == 'Q':
+            return True
+    return False
+
+
+def main(fname_input, inactivity_period, fname_output, debug=False):
 
     dataStream = DataStream(fname_input)
     processor = Processor(fname_input, inactivity_period, fname_output)
@@ -24,23 +29,31 @@ def main(fname_input, inactivity_period, fname_output):
             processor.flush()
             break
 
-        # debug
-        c = input("<CR>=Continue, q=Quit ")
-        if c.upper() == 'Q':
+        if wait(debug):
             break
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
-        print("Usage:", __file__, "input-file inactivity-file output-file")
+        print("Usage:", __file__,
+              "input-file inactivity-file output-file [debug=False/True]")
         exit()
 
     fname_input = sys.argv[1]
     fname_inactivity = sys.argv[2]
     fname_output = sys.argv[3]
 
+    debug = False
+    if len(sys.argv) > 4:
+        debug = sys.argv[4].lower() == "true"
+
     inactivity_period = 0
     with open(fname_inactivity) as file_inactivity:
-        inactivity_period = int(file_inactivity.readline())
+        inactivity_period_str = file_inactivity.readline()
+        try:
+            inactivity_period = int(inactivity_period_str)
+        except ValueError as e:
+            print(e)
+            exit()
 
-    main(fname_input, inactivity_period, fname_output)
+    main(fname_input, inactivity_period, fname_output, debug)
