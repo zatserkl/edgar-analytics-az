@@ -42,9 +42,11 @@ The Python's dictionaries provides about O(1) time complexity.
 
 The code clears entries after streaming the visitor info into the output file, providing very low value of memory usage.
 
-# Programming remarks
+The Processor class performs the actual work.
 
-The code is written in Python 3.6. The code uses feature of dictionary in the Python 3 to keep the input order of the elements.
+The main module sessionization.py creates instances of the DataStream and Processor classes and direct the input data stream from the DataStream to the Processor.
+
+# Programming remarks
 
 The dictionary userDict is of type of OrderedDict to dump the value to the output file after the end of file was detected in the input order.
 
