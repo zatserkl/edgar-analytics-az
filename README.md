@@ -1,9 +1,9 @@
 # Table of Contents
-[Introduction](README.md#Introduction)
-[Environment and Dependencies](README.md#Environment-and-Dependencies)
-[Algorithm and code structure](README.md#Algorithm-and-code-structure)
-[Programming remarks](README.md#Programming-remarks)
-[Test](README.md#Test)
+1. [Introduction](README.md#Introduction)
+2. [Environment and Dependencies](README.md#Environment-and-Dependencies)
+3. [Algorithm and code structure](README.md#Algorithm-and-code-structure)
+4. [Programming remarks](README.md#Programming-remarks)
+5. [Test](README.md#Test)
 
 # Introduction
 
