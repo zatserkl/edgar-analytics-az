@@ -78,13 +78,13 @@ class Processor:
     def write_time_slot(self, date_time):
         """ Writes slot self.time_min into output file.
         """
-        print("  *** write slot time_min", self.time_min)
-        print("    timeDict[time_min]:", self.timeDict[self.time_min])
-
-        print("self.userDict:")
-        for key, value in self.userDict.items():
-            print("key:", key, "   value:", value)
-        print()
+        # print("  *** write slot time_min", self.time_min)
+        # print("    timeDict[time_min]:", self.timeDict[self.time_min])
+        #
+        # print("self.userDict:")
+        # for key, value in self.userDict.items():
+        #     print("key:", key, "   value:", value)
+        # print()
 
         for ip in self.timeDict[self.time_min]:
             try:
