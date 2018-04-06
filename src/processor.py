@@ -1,7 +1,7 @@
 # Andriy Zatserklyaniy <zatserkl@gmail.com> Apr 4, 2018
 
 from filestream import DataStream
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import math
 import datetime
 
@@ -19,8 +19,7 @@ class User:
     def __init__(self):
         # times are in datatime.
         self.session_start = 0  # datatime of the first request
-        self.session_write = 0  # time slot to write to file if no more request
-        # self.session_last = 0   # will be eliminated in final version
+        self.session_write = 0  # time slot to write to file
         self.nrequests = 0
 
     def __str__(self):
@@ -49,10 +48,10 @@ class Processor:
         self.dataStream = DataStream(fname_input)
         self.outfile = open(fname_output, "w")
 
-        self.userDict = defaultdict(User)   # key: ip
-        self.timeDict = defaultdict(list)   # key: time to write to output file
+        self.userDict = OrderedDict()      # key: ip, keep input order
+        self.timeDict = defaultdict(list)  # key: time to write to output file
 
-        self.time_min = None                # current time slot to write
+        self.time_min = None               # current time slot to write
 
     def flush(self):
         print("\nEOF: flush the rest into the output file")
@@ -61,7 +60,7 @@ class Processor:
                   user.session_start, user.session_write))
         print()
 
-        # dump the userDict into the output file
+        # dump the userDict into the output file in the input order
 
         for ip, user in self.userDict.items():
             session_length = user.session_length()
@@ -126,6 +125,8 @@ class Processor:
             self.write_time_slot(date_time)
 
         # add user to ip dictionary
+        if ip not in self.userDict:
+            self.userDict[ip] = User()
         self.userDict[ip].process_request(date_time)
         print("{:16} {}".format(ip, self.userDict[ip]))
 
@@ -133,15 +134,5 @@ class Processor:
         time_slot = self.userDict[ip].session_write
         print("append ip", ip, "to time_slot", time_slot)
         self.timeDict[self.userDict[ip].session_write].append(ip)
-        # if ip not in self.timeDict[self.userDict[ip].session_write]:
-        #     print("append ip", ip, "to time_slot", time_slot)
-        #     self.timeDict[self.userDict[ip].session_write].append(ip)
 
         print("  timeDict", self.timeDict[self.userDict[ip].session_write])
-
-        # # while date_time > self.time_min:
-        # while self.time_min < date_time:
-        #     self.write_time_slot(date_time)
-
-    def bottom(self):
-        pass

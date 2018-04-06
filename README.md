@@ -19,9 +19,11 @@
 
 The code is written in Python 3.6. The code uses feature of dictionary in the Python 3 to keep the input order of the elements.
 
-File stream: We avoid reading the whole file into memory and return generators for each line.
+userDict is OrderedDict to dump the value to the output file after the end of file was detected in the input order.
 
-Field indices: we select the field of interest following the order in the header.
+File stream: I avoid reading the whole file into memory and return generators for each line.
+
+Field indices: I select the field of interest following the order in the header.
 
 Note that in fact we don't need the document name at all.
 
