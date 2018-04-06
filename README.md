@@ -23,7 +23,7 @@ The goal of this challenge is to collect analytics of visiting of the Securities
 
 * Python 3.6.3
 
-* Imported standard modules
+## Imported standard modules
 
 import datetime
 
