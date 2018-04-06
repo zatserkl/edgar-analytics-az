@@ -1,19 +1,8 @@
 # Table of Contents
-1. [Programming remarks](README.md#Programming-remarks)
-
-11. [Understanding the challenge](README.md#understanding-the-challenge)
-12. [Introduction](README.md#introduction)
-13. [Challenge summary](README.md#challenge-summary)
-14. [Details of challenge](README.md#details-of-challenge)
-15. [Implementation details](README.md#implementation-details)
-16. [Input files](README.md#input-files)
-17. [Output file](README.md#output-file)
-18. [Example](README.md#example)
-19. [Writing clean, scalable and well-tested code](README.md#writing-clean-scalable-and-well-tested-code)
-20. [Repo directory structure](README.md#repo-directory-structure)
-21. [Testing your directory structure and output format](README.md#testing-your-directory-structure-and-output-format)
-22. [Instructions to submit your solution](README.md#instructions-to-submit-your-solution)
-23. [FAQ](README.md#faq)
+[Introduction](README.md#Introduction)
+[Environment and Dependencies](README.md#Environment-and-Dependencies)
+[Algorithm and code structure](README.md#Algorithm-and-code-structure)
+[Programming remarks](README.md#Programming-remarks)
 
 # Introduction
 
