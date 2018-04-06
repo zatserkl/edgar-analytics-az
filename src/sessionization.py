@@ -13,7 +13,10 @@ def main(fname_input, inactivity_period, fname_output):
     dataStream = DataStream(fname_input)
     processor = Processor(fname_input, inactivity_period, fname_output)
 
+    line_number = 0
     while True:
+        line_number += 1
+        print("line", line_number)
         try:
             ip, date_time = dataStream.next_fields()
             processor.process_request(ip, date_time)
