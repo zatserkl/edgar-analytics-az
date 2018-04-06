@@ -3,6 +3,7 @@
 [Environment and Dependencies](README.md#Environment-and-Dependencies)
 [Algorithm and code structure](README.md#Algorithm-and-code-structure)
 [Programming remarks](README.md#Programming-remarks)
+[Test](README.md#Test)
 
 # Introduction
 
@@ -61,3 +62,7 @@ Note that in fact to provide the required result we don't need the requested doc
 
 The dictionary entries in userDict and timeDict are removed after streaming into the output file.
 That measure together with usage of input data provide that the memory usage stays the same during the execution of the code, independent on the input file size; it is about 10.2 MB.
+
+# Test
+
+The package was tested on the provided test example and also on few large files from the EDGAR website. A small testing example with technical caveat is included into directory insight_testsuite/tests/test_2.
