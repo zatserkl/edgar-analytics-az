@@ -60,5 +60,4 @@ Note that in fact to provide the required result we don't need the requested doc
 # Memory usage
 
 The dictionary entries in userDict and timeDict are removed after streaming into the output file.
-
 That measure together with usage of input data provide that the memory usage stays the same during the execution of the code, independent on the input file size; it is about 10.2 MB.
