@@ -17,7 +17,19 @@
 
 # Introduction
 
-The goal of this challenge is to collect analytics of visiting of the Securities and Exchange Commission's Electronic Data Gathering, Analysis and Retrieval (EDGAR) system: get the number of requests per session as well as start time and end time of the session for each visitor IP. The detailed description of the code challenge can be found at (https://github.com/InsightDataScience/edgar-analytics).
+The goal of this challenge is to collect analytics of visiting of the Securities and Exchange Commission's Electronic Data Gathering, Analysis and Retrieval (EDGAR) system: get the number of requests per session as well as start time, end time, and duration of the session for each visitor IP. The detailed description of the code challenge can be found at (https://github.com/InsightDataScience/edgar-analytics).
+
+# Environment and Dependencies
+
+* Python 3.6.3
+
+* Imported standard modules
+
+import datetime
+from collections import defaultdict, OrderedDict
+import sys
+import math
+
 
 # Programming remarks
 
