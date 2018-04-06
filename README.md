@@ -17,6 +17,8 @@
 
 # Programming remarks
 
+The code is written in Python 3.6. The code uses feature of dictionary in the Python 3 to keep the input order of the elements.
+
 File stream: We avoid reading the whole file into memory and return generators for each line.
 
 Field indices: we select the field of interest following the order in the header.
