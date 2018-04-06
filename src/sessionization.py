@@ -21,7 +21,8 @@ def main(fname_input, inactivity_period, fname_output, debug=False):
     line_number = 0
     while True:
         line_number += 1
-        print("line", line_number)
+        if debug:
+            print("line", line_number)
         try:
             ip, date_time = dataStream.next_fields()
             processor.process_request(ip, date_time)

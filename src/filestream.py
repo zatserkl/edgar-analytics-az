@@ -65,6 +65,7 @@ class DataStream(FileStream):
         A field doc is a concatenation of cik + accession + extention
         """
         list_str = list(next(self.gen_stream).split(','))
+        # print(list_str)
         ip = list_str[self.ip]
         date = list_str[self.date]
         time = list_str[self.time]
