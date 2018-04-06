@@ -54,19 +54,11 @@ class Processor:
         self.time_min = None               # current time slot to write
 
     def flush(self):
-        # print("\nEOF: flush the rest into the output file")
-        # for ip, user in self.userDict.items():
-        #     print("{:16} start: {} write: {}".format(ip,
-        #           user.session_start, user.session_write))
-        # print()
-
         # dump the userDict into the output file in the input order
 
         for ip, user in self.userDict.items():
             session_length = user.session_length()
             nrequests = user.nrequests
-            # print("      ==> write to file", ip,
-            #       "length:", session_length, "nrequests:", nrequests)
             session_end = user.session_write - User.inactivity_period
             s = (str(ip) + "," +
                  str(user.session_start) + "," +
@@ -78,14 +70,6 @@ class Processor:
     def write_time_slot(self, date_time):
         """ Writes slot self.time_min into output file.
         """
-        # print("  *** write slot time_min", self.time_min)
-        # print("    timeDict[time_min]:", self.timeDict[self.time_min])
-        #
-        # print("self.userDict:")
-        # for key, value in self.userDict.items():
-        #     print("key:", key, "   value:", value)
-        # print()
-
         for ip in self.timeDict[self.time_min]:
             try:
                 user = self.userDict[ip]
@@ -93,12 +77,9 @@ class Processor:
                 print("KeyError e =", e)
                 print("ip =", ip)
                 exit()
-            # print("      candidate ip =", ip, user)
             if user.session_write == self.time_min:
                 session_length = user.session_length()
                 nrequests = user.nrequests
-                # print("      ==> write to file", ip,
-                #       "length:", session_length, "nrequests:", nrequests)
                 session_end = user.session_write - User.inactivity_period
                 s = (str(ip) + "," +
                      str(user.session_start) + "," +
@@ -110,10 +91,6 @@ class Processor:
                 del(self.userDict[ip])
 
         # delete this time slot
-        # print("    bef del: timeDict[time_min]:", self.timeDict[self.time_min])
-        # for ip in self.timeDict[self.time_min]:
-        #     if ip in self.userDict:
-        #         del(self.userDict[ip])
         del(self.timeDict[self.time_min])
 
         # update time_min
@@ -123,7 +100,6 @@ class Processor:
             if self.time_min >= time_last:
                 break
             self.time_min += User.second1
-        # print("  new time_min:", self.time_min)
 
     def process_request(self, ip, date_time):
         """ Processes the request from ip at datetime date_time
@@ -134,8 +110,6 @@ class Processor:
         # last slot to write
         self.time_last = date_time + User.inactivity_period
 
-        # print("-->", date_time, "   time_min =", self.time_min)
-
         while self.time_min < date_time:
             self.write_time_slot(date_time)
 
@@ -143,14 +117,8 @@ class Processor:
         if ip not in self.userDict:
             self.userDict[ip] = User()
         self.userDict[ip].process_request(date_time)
-        # print("{:16} {}".format(ip, self.userDict[ip]))
 
         # add user to time slot session_write
         time_slot = self.userDict[ip].session_write
-        # print("append ip", ip, "to time_slot", time_slot)
-        # --KeyError- self.timeDict[time_slot].append(ip)
         if ip not in self.timeDict[time_slot]:
-            # print("append ip", ip, "to time_slot", time_slot)
             self.timeDict[time_slot].append(ip)
-
-        # print("  timeDict", self.timeDict[self.userDict[ip].session_write])

@@ -6,6 +6,8 @@ import sys
 
 
 def wait(debug):
+    """ Debug tool
+    """
     if debug:
         c = input("<CR>=Continue, q=Quit ")
         if c.upper() == 'Q':
