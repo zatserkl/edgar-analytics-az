@@ -15,6 +15,10 @@
 22. [Instructions to submit your solution](README.md#instructions-to-submit-your-solution)
 23. [FAQ](README.md#faq)
 
+# Introduction
+
+The goal of this challenge is to collect analytics of visiting of the Securities and Exchange Commission's Electronic Data Gathering, Analysis and Retrieval (EDGAR) system: get the number of requests per session as well as start time and end time of the session for each visitor IP. The detailed description of the code challenge can be found at (https://github.com/InsightDataScience/edgar-analytics#implementation-details).
+
 # Programming remarks
 
 The code is written in Python 3.6. The code uses feature of dictionary in the Python 3 to keep the input order of the elements.
@@ -26,6 +30,10 @@ File stream: I avoid reading the whole file into memory and return generators fo
 Field indices: I select the field of interest following the order in the header.
 
 Note that in fact we don't need the document name at all.
+
+# Memory usage
+
+Stays the same, independent on the input file size, is about 10.2 MB.
 
 # Understanding the challenge
 
